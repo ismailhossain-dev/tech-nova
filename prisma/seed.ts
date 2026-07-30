@@ -1,3 +1,8 @@
+//neon db te ei vabe product add kore 
+
+//ei data gola neon db te set korar jonno amra pakage.json "prisma": {
+//   "seed": "npx tsx prisma/seed.ts"
+// } eta  bosabo etar mardome data ta save hobe 
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 

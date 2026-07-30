@@ -3,14 +3,15 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { SlidersHorizontal, Search, RefreshCw, ChevronDown, Filter, Check } from "lucide-react";
-import { ProductCard } from "@/components/catalog/ProductCard";
-
+import { ProductCard } from "@/components/cards/ProductCard";
+//type define category 
 interface Category {
   id: string;
   name: string;
   slug: string;
 }
 
+//type define product brand 
 interface Brand {
   id: string;
   name: string;
@@ -58,7 +59,7 @@ export default function ShopPage() {
       console.error(e);
     }
   };
-
+  // Fetch product data 
   const fetchProducts = async () => {
     setLoading(true);
     const params = new URLSearchParams();
@@ -72,6 +73,7 @@ export default function ShopPage() {
     if (ram) params.set("ram", ram);
     if (storage) params.set("storage", storage);
 
+    // product date fech with useState
     const res = await fetch(`/api/products?${params.toString()}`);
     if (res.ok) {
       setProducts(await res.json());

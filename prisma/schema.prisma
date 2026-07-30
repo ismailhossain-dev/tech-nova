@@ -1,11 +1,11 @@
-// This is your Prisma schema file
+// This is your optimized Prisma schema file for PostgreSQL (Neon)
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -55,27 +55,27 @@ enum CouponType {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String    @unique
-  password      String?
-  image         String?
-  role          Role      @default(CUSTOMER)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id             String             @id @default(cuid())
+  name           String?
+  email          String             @unique
+  password       String?
+  image          String?
+  role           Role               @default(CUSTOMER)
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
 
-  accounts      Account[]
-  sessions      Session[]
-  addresses     Address[]
-  orders        Order[]
-  cart          Cart?
-  wishlists     Wishlist[]
-  reviews       Review[]
+  accounts       Account[]
+  sessions       Session[]
+  addresses      Address[]
+  orders         Order[]
+  cart           Cart?
+  wishlists      Wishlist[]
+  reviews        Review[]
   recentlyViewed RecentlyViewed[]
-  priceAlerts   PriceAlert[]
-  stockAlerts   StockAlert[]
-  notifications Notification[]
-  redemptions   CouponRedemption[]
+  priceAlerts    PriceAlert[]
+  stockAlerts    StockAlert[]
+  notifications  Notification[]
+  redemptions    CouponRedemption[]
 }
 
 model Account {
@@ -84,12 +84,12 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String?
-  access_token      String?
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String?
+  id_token          String? @db.Text
   session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -106,16 +106,16 @@ model Session {
 }
 
 model Category {
-  id          String     @id @default(cuid())
-  name        String
-  slug        String     @unique
-  image       String?
-  parentId    String?
-  parent      Category?  @relation("SubCategories", fields: [parentId], references: [id])
-  children    Category[] @relation("SubCategories")
-  products    Product[]
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  id        String     @id @default(cuid())
+  name      String
+  slug      String     @unique
+  image     String?
+  parentId  String?
+  parent    Category?  @relation("SubCategories", fields: [parentId], references: [id])
+  children  Category[] @relation("SubCategories")
+  products  Product[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 model Brand {
@@ -132,12 +132,12 @@ model Product {
   id             String         @id @default(cuid())
   name           String
   slug           String         @unique
-  description    String
+  description    String         @db.Text
   categoryId     String
   brandId        String
   basePrice      Float
-  images         String         // Stored as JSON string array
-  specifications String         // Stored as JSON object
+  images         Json           // PostgreSQL Native JSON
+  specifications Json           // PostgreSQL Native JSON
   warrantyMonths Int            @default(12)
   avgRating      Float          @default(0)
   reviewCount    Int            @default(0)
@@ -152,20 +152,22 @@ model Product {
 
   @@index([categoryId, status])
   @@index([brandId, status])
+  @@index([basePrice])
+  @@index([avgRating])
 }
 
 model ProductVariant {
-  id                String      @id @default(cuid())
+  id                String    @id @default(cuid())
   productId         String
-  sku               String      @unique
-  attributes        String      // Stored as JSON object e.g. {ram: "16GB", storage: "512GB", color: "Space Gray"}
+  sku               String    @unique
+  attributes        Json      // PostgreSQL Native JSON e.g. {"ram": "16GB", "storage": "512GB", "color": "Space Gray"}
   price             Float
-  stockQuantity     Int         @default(0)
-  lowStockThreshold Int         @default(5)
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime    @updatedAt
+  stockQuantity     Int       @default(0)
+  lowStockThreshold Int       @default(5)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
 
-  product           Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product           Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
   cartItems         CartItem[]
   orderItems        OrderItem[]
   wishlists         Wishlist[]
@@ -174,6 +176,7 @@ model ProductVariant {
   stockAlerts       StockAlert[]
 
   @@index([productId])
+  @@index([price])
 }
 
 model Review {
@@ -181,7 +184,7 @@ model Review {
   productId        String
   userId           String
   rating           Int
-  comment          String
+  comment          String       @db.Text
   verifiedPurchase Boolean      @default(false)
   status           ReviewStatus @default(PENDING)
   createdAt        DateTime     @default(now())
@@ -203,10 +206,10 @@ model Cart {
 }
 
 model CartItem {
-  id        String   @id @default(cuid())
+  id        String @id @default(cuid())
   cartId    String
   variantId String
-  quantity  Int      @default(1)
+  quantity  Int    @default(1)
 
   cart      Cart           @relation(fields: [cartId], references: [id], onDelete: Cascade)
   variant   ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
@@ -264,10 +267,11 @@ model Order {
   redemptions   CouponRedemption[]
 
   @@index([userId])
+  @@index([status])
 }
 
 model OrderItem {
-  id              String   @id @default(cuid())
+  id              String @id @default(cuid())
   orderId         String
   variantId       String
   quantity        Int
@@ -288,17 +292,17 @@ model OrderStatusHistory {
 }
 
 model Coupon {
-  id            String      @id @default(cuid())
-  code          String      @unique
+  id            String     @id @default(cuid())
+  code          String     @unique
   type          CouponType
   value         Float
-  minOrderValue Float       @default(0)
-  usageLimit    Int         @default(100)
-  usageCount    Int         @default(0)
-  perUserLimit  Int         @default(1)
-  startsAt      DateTime    @default(now())
+  minOrderValue Float      @default(0)
+  usageLimit    Int        @default(100)
+  usageCount    Int        @default(0)
+  perUserLimit  Int        @default(1)
+  startsAt      DateTime   @default(now())
   expiresAt     DateTime
-  stackable     Boolean     @default(false)
+  stackable     Boolean    @default(false)
 
   redemptions   CouponRedemption[]
 }

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Star, ShieldCheck, ShoppingBag, Heart, Bell, Check, Truck, RotateCcw, AlertCircle, Share2, Layers } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/store/useCartStore";
-import { ProductCard } from "@/components/catalog/ProductCard";
+import { ProductCard } from "@/components/cards/ProductCard";
 
 interface Variant {
   id: string;
@@ -125,11 +125,10 @@ export function ProductDetailClient({ product, similarProducts }: ProductDetailC
                 <button
                   key={i}
                   onClick={() => setSelectedImage(img)}
-                  className={`relative w-20 h-20 rounded-2xl overflow-hidden border-2 transition-all ${
-                    selectedImage === img
+                  className={`relative w-20 h-20 rounded-2xl overflow-hidden border-2 transition-all ${selectedImage === img
                       ? "border-blue-600 scale-105"
                       : "border-zinc-200 dark:border-zinc-800 opacity-70 hover:opacity-100"
-                  }`}
+                    }`}
                 >
                   <Image src={img} alt={`Thumbnail ${i}`} fill className="object-cover" />
                 </button>
@@ -198,11 +197,10 @@ export function ProductDetailClient({ product, similarProducts }: ProductDetailC
                     <button
                       key={v.id}
                       onClick={() => setSelectedVariant(v)}
-                      className={`p-3 rounded-xl border text-left text-xs transition-all ${
-                        isSelected
+                      className={`p-3 rounded-xl border text-left text-xs transition-all ${isSelected
                           ? "border-blue-600 bg-blue-50/40 dark:bg-blue-950/30 ring-2 ring-blue-500/20"
                           : "border-zinc-200 dark:border-zinc-800 hover:border-zinc-400"
-                      }`}
+                        }`}
                     >
                       <div className="font-bold text-zinc-900 dark:text-white flex items-center justify-between">
                         <span>{Object.values(attrs).join(" / ")}</span>
