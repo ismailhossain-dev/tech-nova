@@ -1,9 +1,4 @@
-//neon db te ei vabe product add kore 
-
-//ei data gola neon db te set korar jonno amra pakage.json "prisma": {
-//   "seed": "npx tsx prisma/seed.ts"
-// } eta  bosabo etar mardome data ta save hobe 
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
@@ -355,22 +350,206 @@ async function main() {
         },
       ],
     },
+    {
+      name: "Apple Watch Ultra 2",
+      slug: "apple-watch-ultra-2",
+      description: "The most rugged and capable Apple Watch. Titanium case, S9 SiP chip, and up to 36 hours of battery life.",
+      categoryId: categoryMap["wearables-watches"],
+      brandId: brandMap["apple"],
+      basePrice: 799,
+      images: JSON.stringify([
+        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80",
+      ]),
+      specifications: JSON.stringify({
+        caseMaterial: "Titanium",
+        display: "49mm Always-On Retina LTPO OLED",
+        batteryLife: "Up to 36 hours (72h Low Power Mode)",
+        waterResistance: "100m, EN13319 dive rated",
+        connectivity: "GPS + Cellular",
+      }),
+      warrantyMonths: 12,
+      avgRating: 4.8,
+      reviewCount: 37,
+      status: "PUBLISHED" as const,
+      variants: [
+        {
+          sku: "AWU2-49-TIT-ORANGE",
+          attributes: JSON.stringify({ size: "49mm", band: "Ocean Band", color: "Orange" }),
+          price: 799,
+          stockQuantity: 22,
+          lowStockThreshold: 5,
+        },
+        {
+          sku: "AWU2-49-TIT-GREEN",
+          attributes: JSON.stringify({ size: "49mm", band: "Trail Loop", color: "Green/Gray" }),
+          price: 829,
+          stockQuantity: 11,
+          lowStockThreshold: 3,
+        },
+      ],
+    },
+    {
+      name: "Samsung Galaxy Watch 6 Classic",
+      slug: "samsung-galaxy-watch-6-classic",
+      description: "Rotating bezel returns. Advanced sleep coaching, body composition analysis, and durable sapphire crystal glass.",
+      categoryId: categoryMap["wearables-watches"],
+      brandId: brandMap["samsung"],
+      basePrice: 429,
+      images: JSON.stringify([
+        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80",
+      ]),
+      specifications: JSON.stringify({
+        caseMaterial: "Stainless Steel",
+        display: '1.5" Super AMOLED, Sapphire Crystal',
+        batteryLife: "Up to 40 hours",
+        waterResistance: "5ATM + IP68",
+        connectivity: "Bluetooth / LTE",
+      }),
+      warrantyMonths: 12,
+      avgRating: 4.6,
+      reviewCount: 21,
+      status: "PUBLISHED" as const,
+      variants: [
+        {
+          sku: "GW6C-47-BLK",
+          attributes: JSON.stringify({ size: "47mm", color: "Black" }),
+          price: 429,
+          stockQuantity: 18,
+          lowStockThreshold: 4,
+        },
+        {
+          sku: "GW6C-43-SLV",
+          attributes: JSON.stringify({ size: "43mm", color: "Silver" }),
+          price: 399,
+          stockQuantity: 14,
+          lowStockThreshold: 3,
+        },
+      ],
+    },
+    {
+      name: "Sony PlayStation 5 Slim",
+      slug: "sony-playstation-5-slim",
+      description: "Experience lightning-fast loading, deeper immersion with haptic feedback, and stunning 4K gaming in a slimmer design.",
+      categoryId: categoryMap["gaming-consoles"],
+      brandId: brandMap["sony"],
+      basePrice: 499,
+      images: JSON.stringify([
+        "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=800&q=80",
+      ]),
+      specifications: JSON.stringify({
+        cpu: "AMD Zen 2, 8 cores",
+        gpu: "AMD RDNA 2, 10.28 TFLOPs",
+        storage: "1TB SSD (expandable)",
+        resolution: "Up to 8K, 4K @ 120fps",
+        opticalDrive: "Ultra HD Blu-ray",
+      }),
+      warrantyMonths: 12,
+      avgRating: 4.9,
+      reviewCount: 88,
+      status: "PUBLISHED" as const,
+      variants: [
+        {
+          sku: "PS5-SLIM-1TB-DISC",
+          attributes: JSON.stringify({ storage: "1TB", edition: "Disc Edition" }),
+          price: 499,
+          stockQuantity: 30,
+          lowStockThreshold: 6,
+        },
+        {
+          sku: "PS5-SLIM-1TB-DIGITAL",
+          attributes: JSON.stringify({ storage: "1TB", edition: "Digital Edition" }),
+          price: 449,
+          stockQuantity: 25,
+          lowStockThreshold: 5,
+        },
+      ],
+    },
+    {
+      name: "ASUS ROG Ally Handheld Gaming PC",
+      slug: "asus-rog-ally",
+      description: "A powerful Windows 11 handheld gaming PC powered by the AMD Ryzen Z1 Extreme processor with a 120Hz FHD display.",
+      categoryId: categoryMap["gaming-consoles"],
+      brandId: brandMap["asus"],
+      basePrice: 699,
+      images: JSON.stringify([
+        "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=800&q=80",
+      ]),
+      specifications: JSON.stringify({
+        processor: "AMD Ryzen Z1 Extreme",
+        display: '7" FHD 120Hz Touch',
+        ramOptions: "16GB LPDDR5",
+        storageOptions: "512GB PCIe 4.0 SSD",
+        battery: "40WHrs",
+      }),
+      warrantyMonths: 12,
+      avgRating: 4.5,
+      reviewCount: 16,
+      status: "PUBLISHED" as const,
+      variants: [
+        {
+          sku: "ROGALLY-Z1E-512",
+          attributes: JSON.stringify({ storage: "512GB", processor: "Z1 Extreme" }),
+          price: 699,
+          stockQuantity: 12,
+          lowStockThreshold: 3,
+        },
+      ],
+    },
+    {
+      name: "Dell XPS 15 (2024)",
+      slug: "dell-xps-15-2024",
+      description: "Premium 15-inch laptop with stunning InfinityEdge display, Intel Core Ultra processors, and machined aluminum chassis.",
+      categoryId: categoryMap["laptops-computers"],
+      brandId: brandMap["dell"],
+      basePrice: 1899,
+      images: JSON.stringify([
+        "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=800&q=80",
+      ]),
+      specifications: JSON.stringify({
+        processor: "Intel Core Ultra 7 155H",
+        gpu: "NVIDIA GeForce RTX 4050",
+        ramOptions: "16GB / 32GB",
+        storageOptions: "512GB / 1TB SSD",
+        display: '15.6" 3.5K OLED Touch',
+        weight: "1.86 kg",
+      }),
+      warrantyMonths: 12,
+      avgRating: 4.6,
+      reviewCount: 24,
+      status: "PUBLISHED" as const,
+      variants: [
+        {
+          sku: "XPS15-16-512-PLAT",
+          attributes: JSON.stringify({ ram: "16GB", storage: "512GB", color: "Platinum Silver" }),
+          price: 1899,
+          stockQuantity: 16,
+          lowStockThreshold: 3,
+        },
+        {
+          sku: "XPS15-32-1TB-GRAPHITE",
+          attributes: JSON.stringify({ ram: "32GB", storage: "1TB", color: "Graphite" }),
+          price: 2399,
+          stockQuantity: 9,
+          lowStockThreshold: 2,
+        },
+      ],
+    },
   ];
 
+  // Nested Write দিয়ে Product ও Variants একবারে Create করা
   for (const prodData of products) {
-    const { variants, ...productInfo } = prodData;
-    const createdProduct = await prisma.product.create({
-      data: productInfo,
-    });
+    const { variants, categoryId, brandId, ...productInfo } = prodData;
 
-    for (const varData of variants) {
-      await prisma.productVariant.create({
-        data: {
-          ...varData,
-          productId: createdProduct.id,
+    await prisma.product.create({
+      data: {
+        ...productInfo,
+        category: { connect: { id: categoryId } },
+        brand: { connect: { id: brandId } },
+        variants: {
+          create: variants,
         },
-      });
-    }
+      },
+    });
   }
 
   console.log("✅ Seeded Products and Variants");
@@ -380,7 +559,7 @@ async function main() {
     data: {
       code: "TECHNOVA10",
       type: "PERCENTAGE",
-      value: 10, // 10% off
+      value: 10,
       minOrderValue: 50,
       usageLimit: 500,
       usageCount: 12,
@@ -395,7 +574,7 @@ async function main() {
     data: {
       code: "FLAT50",
       type: "FIXED",
-      value: 50, // $50 off
+      value: 50,
       minOrderValue: 300,
       usageLimit: 100,
       usageCount: 5,

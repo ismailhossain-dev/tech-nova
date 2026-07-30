@@ -1,6 +1,8 @@
 "use client";
 
 import { ProductCard } from "@/components/cards/ProductCard";
+import ProductLoading from "@/components/Loading/ProductLoading";
+
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -30,9 +32,9 @@ export default function Home() {
     <main className="min-h-screen bg-zinc-50 dark:bg-black text-zinc-900 dark:text-zinc-100 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold mb-6">Explore Products</h1>
-
+        {/* most improtant condition  */}
         {loading ? (
-          <div className="text-center py-20 text-zinc-500">Loading products...</div>
+          <ProductLoading />
         ) : products.length === 0 ? (
           <div className="text-center py-20 text-zinc-500">No products found.</div>
         ) : (

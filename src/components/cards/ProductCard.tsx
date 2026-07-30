@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Star, ShoppingBag, Heart, SlidersHorizontal, ShieldCheck } from "lucide-react";
+import { Star, ShoppingBag, Heart } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/store/useCartStore";
 
@@ -63,73 +63,79 @@ export function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="group relative bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-4 hover:shadow-xl hover:border-blue-500/50 dark:hover:border-blue-500/50 transition-all duration-300 flex flex-col justify-between">
-      {/* Top Badges & Actions */}
+    // মূল কার্ড ডিজাইন: কালো ব্যাকগ্রাউন্ড, ধূসর বর্ডার এবং হোভার করলে ব্লু গ্লো ইফেক্ট
+    <div className="group relative bg-zinc-950 rounded-2xl border border-zinc-800 p-4 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:border-blue-500/50 transition-all duration-300 flex flex-col justify-between">
+      {/* ইমেজ এবং উপরের অংশ */}
       <div>
-        <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 mb-3">
+        {/* ইমেজ কন্টেইনার: সুক্ষ্ম গ্রে ব্যাকগ্রাউন্ড */}
+        <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-zinc-900 mb-3 border border-zinc-800">
           <Image
             src={mainImage}
             alt={product.name}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
+          {/* ব্র্যান্ড ব্যাজ */}
           <div className="absolute top-2.5 left-2.5 flex flex-col gap-1">
             <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-blue-600 text-white rounded-full">
               {product.brand.name}
             </span>
           </div>
 
+          {/* উইশলিস্ট বাটন */}
           <button
             onClick={handleToggleWishlist}
             aria-label="Wishlist"
-            className="absolute top-2.5 right-2.5 p-2 rounded-full bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md text-zinc-600 dark:text-zinc-300 hover:text-red-500 transition-colors shadow-sm"
+            className="absolute top-2.5 right-2.5 p-2 rounded-full bg-black/50 backdrop-blur-sm text-zinc-400 hover:text-red-500 transition-colors shadow-sm"
           >
             <Heart
-              className={`w-4 h-4 ${
-                isInWishlist ? "fill-red-500 text-red-500" : ""
-              }`}
+              className={`w-4 h-4 ${isInWishlist ? "fill-red-500 text-red-500" : ""
+                }`}
             />
           </button>
         </div>
 
-        {/* Category & Title */}
+        {/* ক্যাটাগরি এবং প্রোডাক্টের নাম */}
         <div className="space-y-1">
-          <span className="text-[11px] text-zinc-500 dark:text-zinc-400 font-medium">
+          <span className="text-[11px] text-zinc-500 font-medium uppercase tracking-wider">
             {product.category.name}
           </span>
           <Link href={`/product/${product.slug}`}>
-            <h3 className="text-sm font-bold text-zinc-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
+            {/* প্রোডাক্টের নাম: সাদা কালার, হোভারে ব্লু হবে */}
+            <h3 className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors line-clamp-2">
               {product.name}
             </h3>
           </Link>
         </div>
 
-        {/* Rating Stars */}
-        <div className="flex items-center gap-1 mt-2 text-xs">
-          <div className="flex items-center text-amber-400">
+        {/* রেটিং */}
+        <div className="flex items-center gap-1.5 mt-2.5 text-xs">
+          <div className="flex items-center text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded-full">
             <Star className="w-3.5 h-3.5 fill-amber-400" />
-            <span className="font-bold ml-1 text-zinc-900 dark:text-white">
+            <span className="font-bold ml-1.5 text-white">
               {product.avgRating.toFixed(1)}
             </span>
           </div>
-          <span className="text-zinc-400 text-[11px]">
+          <span className="text-zinc-500 text-[11px]">
             ({product.reviewCount} reviews)
           </span>
         </div>
       </div>
 
-      {/* Bottom Price & Add to Cart */}
-      <div className="pt-4 mt-3 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between gap-2">
+      {/* নিচের অংশ: দাম এবং কার্ডে যোগ করুন বাটন */}
+      {/* বর্ডার কালার আরও সুক্ষ্ম করা হয়েছে */}
+      <div className="pt-4 mt-3 border-t border-zinc-800 flex items-center justify-between gap-2">
         <div>
-          <span className="text-xs text-zinc-400 block">From</span>
-          <span className="text-base font-extrabold text-blue-600 dark:text-blue-400">
+          <span className="text-[10px] text-zinc-500 block uppercase tracking-wider">From</span>
+          {/* দামের কালার: গ্লোয়িং ব্লু */}
+          <span className="text-base font-extrabold text-blue-400">
             {formatPrice(defaultVariant?.price || product.basePrice)}
           </span>
         </div>
 
         <button
           onClick={handleAddToCart}
-          className="flex items-center gap-1.5 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-500/20 active:scale-95 transition-all"
+          className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-500/20 active:scale-95 transition-all"
         >
           <ShoppingBag className="w-4 h-4" /> Add
         </button>
