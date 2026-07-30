@@ -1,12 +1,16 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
+// ডাটাবেজের সাথে যোগাযোগ করার জন্য প্রিসমা ক্লায়েন্ট ইনিশিয়ালাইজ (শুরু) করা হচ্ছে
 const prisma = new PrismaClient();
 
 async function main() {
   console.log("🌱 Starting TechNova Database Seeding...");
 
-  // 1. Clean existing data
+  // ==========================================
+  // ১. পুরোনো ডাটা মুছে ফেলা (CLEAN EXISTING DATA)
+  // ডুপ্লিকেট কি (Duplicate Key) এরর এড়াতে এবং নতুনভাবে শুরু করতে সব পুরোনো তথ্য ডিলিট করা হচ্ছে।
+  // ==========================================
   await prisma.couponRedemption.deleteMany({});
   await prisma.coupon.deleteMany({});
   await prisma.notification.deleteMany({});
@@ -28,10 +32,14 @@ async function main() {
   await prisma.user.deleteMany({});
   await prisma.storeSettings.deleteMany({});
 
-  // 2. Create Users
+  // ==========================================
+  // ২. ইউজার তৈরি করা (CREATE USERS)
+  // ডাটাবেজে সেভ করার আগে নিরাপত্তার জন্য bcrypt দিয়ে আসল পাসওয়ার্ড এনক্রিপ্ট/হ্যাশ করা হচ্ছে।
+  // ==========================================
   const adminPassword = await bcrypt.hash("admin123", 10);
   const userPassword = await bcrypt.hash("user123", 10);
 
+  // একজন এডমিন (Admin) ইউজার তৈরি করা হচ্ছে
   const admin = await prisma.user.create({
     data: {
       name: "TechNova Admin",
@@ -42,6 +50,7 @@ async function main() {
     },
   });
 
+  // একজন সাধারণ কাস্টমার (Customer) ইউজার তৈরি করা হচ্ছে
   const customer = await prisma.user.create({
     data: {
       name: "John Doe",
@@ -54,7 +63,10 @@ async function main() {
 
   console.log("✅ Seeded Users:", { admin: admin.email, customer: customer.email });
 
-  // 3. Create Store Settings
+  // ==========================================
+  // ৩. স্টোর সেটিংস সেট করা (CREATE STORE SETTINGS)
+  // দোকানের সার্বিক নিয়ম যেমন শিপিং ফি এবং ট্যাক্স রেট সেট করা হচ্ছে।
+  // ==========================================
   await prisma.storeSettings.create({
     data: {
       id: "default",
@@ -64,7 +76,10 @@ async function main() {
     },
   });
 
-  // 4. Create Categories
+  // ==========================================
+  // ৪. ক্যাটাগরি তৈরি করা (CREATE CATEGORIES)
+  // প্রোডাক্টের ক্যাটাগরি যোগ করা এবং ভবিষ্যতে ব্যবহারের জন্য জেনারেট হওয়া ID গুলোকে Slug অনুযায়ী ম্যাপ করা।
+  // ==========================================
   const categoriesData = [
     {
       name: "Laptops & Computers",
@@ -93,13 +108,17 @@ async function main() {
     },
   ];
 
+  // ক্যাটাগরি স্লাগ (Slug) অনুযায়ী ডাটাবেজ ID সংরক্ষণ করার জন্য অবজেক্ট
   const categoryMap: Record<string, string> = {};
   for (const cat of categoriesData) {
     const created = await prisma.category.create({ data: cat });
     categoryMap[cat.slug] = created.id;
   }
 
-  // 5. Create Brands
+  // ==========================================
+  // ৫. ব্র্যান্ড তৈরি করা (CREATE BRANDS)
+  // বিভিন্ন ব্রান্ডের নাম যোগ করা এবং প্রোডাক্ট লিংক করার জন্য তাদের ID একটি ম্যাপে সংরক্ষণ করা।
+  // ==========================================
   const brandsData = [
     { name: "Apple", slug: "apple", logo: "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=200&q=80" },
     { name: "Samsung", slug: "samsung", logo: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=200&q=80" },
@@ -109,13 +128,17 @@ async function main() {
     { name: "Logitech", slug: "logitech", logo: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=200&q=80" },
   ];
 
+  // ব্র্যান্ড স্লাগ (Slug) অনুযায়ী ডাটাবেজ ID সংরক্ষণ করার অবজেক্ট
   const brandMap: Record<string, string> = {};
   for (const b of brandsData) {
     const created = await prisma.brand.create({ data: b });
     brandMap[b.slug] = created.id;
   }
 
-  // 6. Create Products with Variants
+  // ==========================================
+  // ৬. ভ্যারিয়েন্টসহ প্রোডাক্ট তৈরি করা (CREATE PRODUCTS WITH VARIANTS)
+  // প্রোডাক্টের বিবরণ, স্পেসিফিকেশন, রেটিং এবং সাব-ভ্যারিয়েন্ট (যেমন: RAM/Color/Storage) সেট করা।
+  // ==========================================
   const products = [
     {
       name: 'MacBook Pro 16" M3 Max',
@@ -350,7 +373,6 @@ async function main() {
         },
       ],
     },
-
     {
       name: "Samsung Galaxy Watch 6 Classic",
       slug: "samsung-galaxy-watch-6-classic",
@@ -499,15 +521,17 @@ async function main() {
     },
   ];
 
-  // Nested Write দিয়ে Product ও Variants একবারে Create করা
+  // একটি নেস্টেড রাইট ট্রানজ্যাকশনের মাধ্যমে প্রোডাক্ট এবং তাদের ভ্যারিয়েন্টগুলো ডাটাবেজে ইনসার্ট করা
   for (const prodData of products) {
     const { variants, categoryId, brandId, ...productInfo } = prodData;
 
     await prisma.product.create({
       data: {
         ...productInfo,
+        // বিদ্যমান ক্যাটাগরি এবং ব্র্যান্ডের ID কানেক্ট করা হচ্ছে
         category: { connect: { id: categoryId } },
         brand: { connect: { id: brandId } },
+        // নেস্টেড প্রোডাক্ট ভ্যারিয়েন্ট তৈরি করা হচ্ছে
         variants: {
           create: variants,
         },
@@ -517,7 +541,10 @@ async function main() {
 
   console.log("✅ Seeded Products and Variants");
 
-  // 7. Create Coupons
+  // ==========================================
+  // ৭. কুপন তৈরি করা (CREATE COUPONS)
+  // টেস্ট অর্ডারের জন্য প্রমোশনাল ডিসকাউন্ট কোড যুক্ত করা হচ্ছে।
+  // ==========================================
   await prisma.coupon.create({
     data: {
       code: "TECHNOVA10",
@@ -528,7 +555,7 @@ async function main() {
       usageCount: 12,
       perUserLimit: 2,
       startsAt: new Date(),
-      expiresAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+      expiresAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // ৯০ দিনের জন্য কার্যকর
       stackable: false,
     },
   });
@@ -543,7 +570,7 @@ async function main() {
       usageCount: 5,
       perUserLimit: 1,
       startsAt: new Date(),
-      expiresAt: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000),
+      expiresAt: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000), // ৬০ দিনের জন্য কার্যকর
       stackable: false,
     },
   });
@@ -552,12 +579,18 @@ async function main() {
   console.log("🎉 Seeding completed successfully!");
 }
 
+// ==========================================
+// সিড স্ক্রিপ্ট রান বা এক্সিকিউট করা (EXECUTE SEED SCRIPT)
+// ডাটাবেজ কানেকশন জীবনচক্র এবং এরর সঠিকভাবে ম্যানেজ করা।
+// ==========================================
 main()
   .then(async () => {
+    // সফলভাবে ডাটা সেভ হলে প্রিসমা ক্লায়েন্ট ডিসকানেক্ট করা হচ্ছে
     await prisma.$disconnect();
   })
   .catch(async (e) => {
     console.error("❌ Seeding Error:", e);
+    // কোনো এরর হলে প্রিসমা ক্লায়েন্ট ডিসকানেক্ট করে প্রসেস বন্ধ করা হচ্ছে
     await prisma.$disconnect();
     process.exit(1);
   });

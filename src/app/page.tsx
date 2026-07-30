@@ -35,8 +35,8 @@ export default function Home() {
 
       <div className="max-w-7xl mx-auto">
         <Banner />
-        <div className="bg-[#212121]">
-          <div className="text-center py-10">
+        <div className="bg-[#212121] py-10">
+          <div className="text-center  mb-10">
             <h1 className="text-3xl font-bold ">Featured Products</h1>
             <p className="text-[16px]">Check & Get Your Desired Product!</p>
           </div>
@@ -46,7 +46,7 @@ export default function Home() {
           ) : products.length === 0 ? (
             <div className="text-center py-20 text-zinc-500">No products found.</div>
           ) : (
-            <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-5  ">
+            <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-5 gap-4  ">
               {products.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}

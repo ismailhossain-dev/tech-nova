@@ -63,87 +63,75 @@ export function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    // মূল কার্ড ডিজাইন: কালো ব্যাকগ্রাউন্ড, ধূসর বর্ডার এবং হোভার করলে ব্লু গ্লো ইফেক্ট
-    // hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:border-blue-500/50 
-    <Link className="flex  items-center justify-center " href={`/product/${product.slug}`}>
-      <div className="group relative bg-[#212121] border-r border-[#282a2b] p-4 transition-all duration-300 flex flex-col  items-center  h-full  w-full">
-        {/* ক্যাটাগরি এবং প্রোডাক্টের নাম */}
-        <div className="mb-3">
-          <span className="text-[11px]  text-zinc-500 font-medium uppercase tracking-wider mb-2">
-            {product.category.name}
-          </span>
-          {/* <Link href={`/product/${product.slug}`}> */}
-          {/* প্রোডাক্টের নাম: সাদা কালার, হোভারে ব্লু হবে */}
-          <h3 className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors line-clamp-2">
+    <Link href={`/product/${product.slug}`} className="group flex flex-col h-full w-full">
+      <div className="flex flex-col justify-between h-full w-full bg-[#212121] border border-[#282a2b] hover:border-blue-500/50 p-4 transition-all duration-300 rounded-2xl hover:shadow-[0_0_20px_rgba(59,130,246,0.2)]">
+
+        {/* Top Content */}
+        <div className="flex flex-col">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider line-clamp-1">
+              {product.category.name}
+            </span>
+          </div>
+
+          <h3 className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors line-clamp-2 h-10 leading-tight">
             {product.name}
           </h3>
 
-        </div>
-        <div>
-          {/* ইমেজ কন্টেইনার: সুক্ষ্ম গ্রে ব্যাকগ্রাউন্ড */}
-          <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-zinc-900 mb-3 border border-zinc-800 h-[130px]">
+          <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-zinc-900/80 my-3 border border-zinc-800">
             <Image
               src={mainImage}
               alt={product.name}
               fill
-              className="object-cover group-hover:scale-105 transition-transform duration-500 "
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
             />
 
-            {/* ব্র্যান্ড ব্যাজ */}
             <div className="absolute top-2.5 left-2.5 flex flex-col gap-1">
-              <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-blue-600 text-white rounded-full">
+              <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-blue-600/90 backdrop-blur-md text-white rounded-full">
                 {product.brand.name}
               </span>
             </div>
 
-            {/* উইশলিস্ট বাটন */}
             <button
               onClick={handleToggleWishlist}
               aria-label="Wishlist"
-              className="absolute top-2.5 right-2.5 p-2 rounded-full bg-black/50 backdrop-blur-sm text-zinc-400 hover:text-red-500 transition-colors shadow-sm"
+              className="absolute top-2.5 right-2.5 p-2 rounded-full bg-black/60 backdrop-blur-sm text-zinc-400 hover:text-red-500 transition-colors shadow-sm"
             >
               <Heart
-                className={`w-4 h-4 ${isInWishlist ? "fill-red-500 text-red-500" : ""
+                className={`w-3.5 h-3.5 ${isInWishlist ? "fill-red-500 text-red-500" : ""
                   }`}
               />
             </button>
           </div>
 
-
-
-
-          {/* রেটিং */}
-          <div className="flex items-center gap-1.5 mt-2.5 text-xs">
-            <div className="flex items-center text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded-full">
-              <Star className="w-3.5 h-3.5 fill-amber-400" />
-              <span className="font-bold ml-1.5 text-white">
+          <div className="flex items-center gap-1.5 mb-3 text-xs">
+            <div className="flex items-center text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded-full border border-amber-400/20">
+              <Star className="w-3 h-3 fill-amber-400" />
+              <span className="font-bold ml-1 text-white text-[11px]">
                 {product.avgRating.toFixed(1)}
               </span>
             </div>
             <span className="text-zinc-500 text-[11px]">
-              ({product.reviewCount} reviews)
+              ({product.reviewCount})
             </span>
           </div>
         </div>
 
-        {/* নিচের অংশ: দাম এবং কার্ডে যোগ করুন বাটন */}
-        {/* বর্ডার কালার আরও সুক্ষ্ম করা হয়েছে */}
-        <div className="pt-2 mt-2 border-t border-zinc-800 flex items-center justify-between  gap-2">
-          <div>
-
-            {/* দামের কালার: গ্লোয়িং ব্লু */}
-            <span className="text-base font-extrabold text-blue-400">
-              {formatPrice(defaultVariant?.price || product.basePrice)}
-            </span>
-          </div>
+        {/* Bottom Actions aligned to absolute bottom across all cards */}
+        <div className="pt-3 border-t border-zinc-800/80 flex items-center justify-between gap-2 mt-auto">
+          <span className="text-base font-extrabold text-blue-400 tracking-tight">
+            {formatPrice(defaultVariant?.price || product.basePrice)}
+          </span>
 
           <button
             onClick={handleAddToCart}
-            className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-500/20 active:scale-95 transition-all"
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-600/20 active:scale-95 transition-all shrink-0"
           >
-            <ShoppingBag className="w-4 h-4" /> Add
+            <ShoppingBag className="w-3.5 h-3.5" />
+            <span>Add</span>
           </button>
         </div>
+
       </div>
     </Link>
   );
