@@ -24,8 +24,9 @@ export default async function RootLayout({
   const initialTheme = themeCookie === "light" ? "light" : "dark";
 
   return (
-    <html lang="en" className={initialTheme === "dark" ? "dark" : ""}>
-      <body className={`${inter.className} min-h-screen flex flex-col bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans transition-colors`}>
+    // <html lang="en" className={initialTheme === "dark" ? "dark" : ""}>
+    <html lang="en" >
+      <body className={`${inter.className} min-h-screen flex flex-col bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans transition-colors `}>
         <AuthProvider>
           <ThemeProvider initialTheme={initialTheme}>
             <Navbar />

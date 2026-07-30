@@ -350,44 +350,7 @@ async function main() {
         },
       ],
     },
-    {
-      name: "Apple Watch Ultra 2",
-      slug: "apple-watch-ultra-2",
-      description: "The most rugged and capable Apple Watch. Titanium case, S9 SiP chip, and up to 36 hours of battery life.",
-      categoryId: categoryMap["wearables-watches"],
-      brandId: brandMap["apple"],
-      basePrice: 799,
-      images: JSON.stringify([
-        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80",
-      ]),
-      specifications: JSON.stringify({
-        caseMaterial: "Titanium",
-        display: "49mm Always-On Retina LTPO OLED",
-        batteryLife: "Up to 36 hours (72h Low Power Mode)",
-        waterResistance: "100m, EN13319 dive rated",
-        connectivity: "GPS + Cellular",
-      }),
-      warrantyMonths: 12,
-      avgRating: 4.8,
-      reviewCount: 37,
-      status: "PUBLISHED" as const,
-      variants: [
-        {
-          sku: "AWU2-49-TIT-ORANGE",
-          attributes: JSON.stringify({ size: "49mm", band: "Ocean Band", color: "Orange" }),
-          price: 799,
-          stockQuantity: 22,
-          lowStockThreshold: 5,
-        },
-        {
-          sku: "AWU2-49-TIT-GREEN",
-          attributes: JSON.stringify({ size: "49mm", band: "Trail Loop", color: "Green/Gray" }),
-          price: 829,
-          stockQuantity: 11,
-          lowStockThreshold: 3,
-        },
-      ],
-    },
+
     {
       name: "Samsung Galaxy Watch 6 Classic",
       slug: "samsung-galaxy-watch-6-classic",
