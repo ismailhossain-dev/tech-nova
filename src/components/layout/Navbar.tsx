@@ -55,14 +55,14 @@ export function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white/70 dark:bg-zinc-950/70 backdrop-blur-xl transition-all">
+    <header className="sticky top-0 z-50 w-full border-b border-[#081621] text-white bg-[#081621] backdrop-blur-xl transition-all">
       {/* Top Announcement Banner */}
       <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white text-xs py-1.5 px-4 text-center font-medium shadow-inner">
         ⚡ Summer Sale! Use code{" "}
         <span className="font-bold underline tracking-wide">TECHNOVA10</span> for 10% OFF on all laptops & smartphones!
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl text-white mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
 
           {/* Brand Logo */}
@@ -71,7 +71,7 @@ export function Navbar() {
               <Laptop className="w-5 h-5" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-zinc-900 via-blue-600 to-indigo-600 dark:from-white dark:via-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
+              <span className="text-xl font-extrabold tracking-tight text-white ">
                 TechNova
               </span>
               <span className="text-[9px] text-zinc-500 dark:text-zinc-400 font-semibold tracking-widest uppercase -mt-1">
@@ -90,7 +90,7 @@ export function Navbar() {
               placeholder="Search laptops, smartphones, headphones..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-20 py-2 text-sm rounded-full border border-zinc-200 dark:border-zinc-800 bg-zinc-100/70 dark:bg-zinc-900/70 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 dark:focus:ring-blue-400/50 transition-all"
+              className="w-full pl-10 pr-20 py-2 text-sm rounded-full border   text-zinc-100  focus:outline-none ring-blue-500/50 border-blue-500 dark:focus:ring-blue-400/50 transition-all"
             />
             <Search className="absolute left-3.5 top-2.5 w-4 h-4 text-zinc-400 group-focus-within:text-blue-500 transition-colors" />
             <button
@@ -110,8 +110,8 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   className={`relative py-1 transition-colors hover:text-blue-600 dark:hover:text-blue-400 ${isActive
-                      ? "text-blue-600 dark:text-blue-400 font-semibold"
-                      : "text-zinc-600 dark:text-zinc-400"
+                    ? "text-blue-600 dark:text-blue-400 font-semibold"
+                    : "text-white"
                     }`}
                 >
                   {link.label}
@@ -126,22 +126,22 @@ export function Navbar() {
           {/* Right Actions */}
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Theme Toggle Button */}
-            <button
+            {/* <button
               onClick={toggleTheme}
               aria-label="Toggle Theme"
-              className="p-2.5 rounded-xl text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-colors"
+              className="p-2.5 rounded-xl text-white hover:bg-indigo-500 transition-colors"
             >
               {theme === "dark" ? (
                 <Sun className="w-5 h-5 text-amber-400" />
               ) : (
                 <Moon className="w-5 h-5 text-indigo-600" />
               )}
-            </button>
+            </button> */}
 
             {/* Wishlist Link */}
             <Link
               href="/wishlist"
-              className="p-2.5 rounded-xl text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-colors"
+              className="p-2.5 rounded-xl text-white hover:bg-indigo-500  transition-colors"
               aria-label="Wishlist"
             >
               <Heart className="w-5 h-5" />
@@ -150,7 +150,7 @@ export function Navbar() {
             {/* Cart Link with Badge (Fixed Hydration Issue) */}
             <Link
               href="/cart"
-              className="p-2.5 rounded-xl text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-colors relative"
+              className="p-2.5 rounded-xl text-white hover:bg-indigo-500  transition-colors relative"
               aria-label="Cart"
             >
               <ShoppingBag className="w-5 h-5" />
@@ -161,10 +161,10 @@ export function Navbar() {
               )}
             </Link>
 
-            {/* Auth Actions */}
+            {/* Auth Actions & profile */}
             {session?.user ? (
               <div className="relative group">
-                <button className="flex items-center gap-2 p-1.5 rounded-xl text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-colors">
+                <button className="flex items-center gap-2 p-1.5 rounded-xl  transition-colors">
                   <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">
                     {session.user.name?.[0]?.toUpperCase() || "U"}
                   </div>
@@ -238,7 +238,7 @@ export function Navbar() {
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg"
+              className="lg:hidden p-2 text-white dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg"
               aria-label="Toggle Navigation Menu"
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -269,8 +269,8 @@ export function Navbar() {
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`px-3 py-2 text-sm font-medium rounded-xl transition-colors ${isActive
-                        ? "bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 font-semibold"
-                        : "text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800/60"
+                      ? "bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 font-semibold"
+                      : "text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800/60"
                       }`}
                   >
                     {link.label}

@@ -2,7 +2,7 @@ import { Loader2 } from "lucide-react";
 
 export default function ProductLoading() {
     return (
-        <div className="min-h-[60vh] w-full flex flex-col items-center justify-center space-y-4 bg-zinc-50 dark:bg-black text-zinc-900 dark:text-zinc-100">
+        <div className="min-h-[60vh] w-full flex flex-col items-center justify-center space-y-4 ">
 
             {/* Brand Logo & Glowing Spinner Wrapper */}
             <div className="relative flex items-center justify-center">

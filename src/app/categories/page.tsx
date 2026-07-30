@@ -30,7 +30,7 @@ export default async function CategoriesPage() {
           <Link
             key={cat.id}
             href={`/shop?category=${cat.slug}`}
-            className="group relative bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+            className="group relative bg-zinc-900 rounded-3xl border border-zinc-200 border-zinc-800 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
           >
             <div className="relative aspect-[16/9] w-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
               <Image

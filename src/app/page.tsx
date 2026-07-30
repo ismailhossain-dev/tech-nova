@@ -30,23 +30,29 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-zinc-50 dark:bg-black text-zinc-900 dark:text-zinc-100 py-10 px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen 
+     py-10 px-4 sm:px-6 lg:px-8">
 
       <div className="max-w-7xl mx-auto">
         <Banner />
-        <h1 className="text-3xl font-bold mb-6">Explore Products</h1>
-        {/* most improtant condition  */}
-        {loading ? (
-          <ProductLoading />
-        ) : products.length === 0 ? (
-          <div className="text-center py-20 text-zinc-500">No products found.</div>
-        ) : (
-          <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-5 ">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+        <div className="bg-[#212121]">
+          <div className="text-center py-10">
+            <h1 className="text-3xl font-bold ">Featured Products</h1>
+            <p className="text-[16px]">Check & Get Your Desired Product!</p>
           </div>
-        )}
+          {/* most improtant condition  */}
+          {loading ? (
+            <ProductLoading />
+          ) : products.length === 0 ? (
+            <div className="text-center py-20 text-zinc-500">No products found.</div>
+          ) : (
+            <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-5  ">
+              {products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </main>
   );

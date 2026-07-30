@@ -48,7 +48,7 @@ export default function Banner() {
     }, []);
 
     return (
-        <section className="relative w-full min-h-[420px] md:min-h-[480px] lg:h-[520px] bg-zinc-950 border border-zinc-800/80 rounded-3xl overflow-hidden flex flex-col md:flex-row items-center justify-between p-6 sm:p-10 lg:p-12 mb-10 gap-6 absolute mt-[-30px]">
+        <section className="relative w-full min-h-[420px] md:min-h-[480px] lg:h-[520px] bg-[#181818] border-zinc-800/80 rounded-3xl overflow-hidden flex flex-col md:flex-row items-center justify-between p-6 sm:p-10 lg:p-12 mb-10 gap-6 absolute mt-[-30px]">
 
             {/* ১. ব্যাকগ্রাউন্ড লাইট স্পট (ইমেজকে বড় ও উজ্জ্বল দেখানোর জন্য) */}
             <div className="absolute -right-10 top-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-blue-600/20 blur-[130px] rounded-full pointer-events-none z-0" />

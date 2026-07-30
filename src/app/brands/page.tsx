@@ -20,7 +20,7 @@ export default async function BrandsPage() {
         <h1 className="text-3xl font-extrabold text-zinc-900 dark:text-white tracking-tight">
           Official Authorized Brands
         </h1>
-        <p className="text-xs text-zinc-500">
+        <p className=" ">
           Shop 100% genuine electronics from world-class tech manufacturers with official warranty
         </p>
       </div>
@@ -30,7 +30,7 @@ export default async function BrandsPage() {
           <Link
             key={b.id}
             href={`/shop?brand=${b.slug}`}
-            className="group bg-white dark:bg-zinc-900 p-6 rounded-3xl border border-zinc-200 dark:border-zinc-800 hover:border-indigo-500/50 hover:shadow-xl transition-all duration-300 flex items-center justify-between"
+            className="group bg-zinc-900 p-6 rounded-3xl border border-zinc-200 border-zinc-800 hover:border-indigo-500/50 hover:shadow-xl transition-all duration-300 flex items-center justify-between"
           >
             <div className="flex items-center gap-4">
               <div className="relative w-14 h-14 rounded-2xl bg-zinc-100 dark:bg-zinc-800 overflow-hidden shrink-0 border border-zinc-200 dark:border-zinc-700">
@@ -42,7 +42,7 @@ export default async function BrandsPage() {
                 />
               </div>
               <div>
-                <h3 className="text-base font-bold text-zinc-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                <h3 className="text-base font-bold text-white text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                   {b.name}
                 </h3>
                 <span className="text-xs text-zinc-500">

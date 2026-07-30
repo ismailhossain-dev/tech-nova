@@ -65,11 +65,11 @@ export function ProductCard({ product }: ProductCardProps) {
   return (
     // মূল কার্ড ডিজাইন: কালো ব্যাকগ্রাউন্ড, ধূসর বর্ডার এবং হোভার করলে ব্লু গ্লো ইফেক্ট
     // hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:border-blue-500/50 
-    <Link href={`/product/${product.slug}`}>
-      <div className="group relative bg-zinc-950 border-r border-zinc-800 p-4 transition-all duration-300 flex flex-col justify-between">
+    <Link className="flex  items-center justify-center " href={`/product/${product.slug}`}>
+      <div className="group relative bg-[#212121] border-r border-[#282a2b] p-4 transition-all duration-300 flex flex-col  items-center  h-full  w-full">
         {/* ক্যাটাগরি এবং প্রোডাক্টের নাম */}
         <div className="mb-3">
-          <span className="text-[11px] text-zinc-500 font-medium uppercase tracking-wider mb-2">
+          <span className="text-[11px]  text-zinc-500 font-medium uppercase tracking-wider mb-2">
             {product.category.name}
           </span>
           {/* <Link href={`/product/${product.slug}`}> */}
@@ -128,9 +128,9 @@ export function ProductCard({ product }: ProductCardProps) {
 
         {/* নিচের অংশ: দাম এবং কার্ডে যোগ করুন বাটন */}
         {/* বর্ডার কালার আরও সুক্ষ্ম করা হয়েছে */}
-        <div className="pt-2 mt-2 border-t border-zinc-800 flex items-center justify-between gap-2">
+        <div className="pt-2 mt-2 border-t border-zinc-800 flex items-center justify-between  gap-2">
           <div>
-            <span className="text-[10px] text-zinc-500 block uppercase tracking-wider">From</span>
+
             {/* দামের কালার: গ্লোয়িং ব্লু */}
             <span className="text-base font-extrabold text-blue-400">
               {formatPrice(defaultVariant?.price || product.basePrice)}

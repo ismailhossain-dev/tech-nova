@@ -26,7 +26,7 @@ export default async function RootLayout({
   return (
     // <html lang="en" className={initialTheme === "dark" ? "dark" : ""}>
     <html lang="en" >
-      <body className={`${inter.className} min-h-screen flex flex-col bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans transition-colors `}>
+      <body className={`${inter.className} min-h-screen flex flex-col text-[#d7d7d7] font-sans  bg-[#181818] `}>
         <AuthProvider>
           <ThemeProvider initialTheme={initialTheme}>
             <Navbar />
