@@ -125,7 +125,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
           <button
             onClick={handleAddToCart}
-            className="flex items-center gap-1.5 px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-600/20 active:scale-95 transition-all shrink-0"
+            className="flex items-center gap-1.5 px-3.5 py-2 btn"
           >
             <ShoppingBag className="w-3.5 h-3.5" />
             <span>Add</span>

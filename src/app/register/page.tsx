@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Laptop, Lock, Mail, User, AlertCircle, ArrowRight, CheckCircle } from "lucide-react";
 
 export default function RegisterPage() {
@@ -46,102 +47,145 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md space-y-8 bg-white dark:bg-zinc-900 p-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-xl">
-        <div className="text-center space-y-2">
-          <div className="inline-flex w-12 h-12 rounded-xl bg-blue-600 items-center justify-center text-white font-bold mb-2 shadow-lg shadow-blue-500/30">
-            <Laptop className="w-6 h-6" />
+    // মূল ব্যাকগ্রাউন্ড color: #212121
+    <div className="min-h-screen bg-[#212121] flex items-center justify-center p-4 sm:p-6 lg:p-8">
+
+      {/* রেসপন্সিভ গ্রিড কন্টেইনার (মোবাইলে ১ কলাম, ল্যাপটপ/ডেস্কটপে ২ কলাম) */}
+      <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 bg-[#181818] rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl">
+
+        {/* বাম পাশ: Unsplash ইমেজ সেকশন (lg স্ক্রিনের নিচে লুকিয়ে যাবে) */}
+        <div className="relative hidden lg:block">
+          <Image
+            src="https://images.unsplash.com/photo-1569183091671-696402586b9c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGklMjBwaG9uZSUyMDE4fGVufDB8fDB8fHww"
+            alt="Cyberpunk tech visual"
+            fill
+            priority
+            className="object-cover"
+            sizes="50vw"
+          />
+          {/* ইমেজের ওপর গ্র্যাডিয়েন্ট ওভারলে */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#181818] via-[#181818]/40 to-transparent p-10 flex flex-col justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/30">
+                <Laptop className="w-5 h-5" />
+              </div>
+              <span className="text-xl font-black text-white tracking-wider">TechNova</span>
+            </div>
+
+            <div className="space-y-2">
+              <h3 className="text-3xl font-extrabold text-white leading-tight">
+                Empowering Your Digital World.
+              </h3>
+              <p className="text-xs text-zinc-400 max-w-sm">
+                Join our platform to access cutting-edge electronics, exclusive pricing, and express delivery.
+              </p>
+            </div>
           </div>
-          <h2 className="text-2xl font-extrabold text-zinc-900 dark:text-white tracking-tight">
-            Create Your TechNova Account
-          </h2>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400">
-            Join thousands of electronics enthusiasts & enjoy express checkout
-          </p>
         </div>
 
-        {success && (
-          <div className="flex items-center gap-2 p-3 text-xs rounded-lg bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-emerald-600 dark:text-emerald-400 font-semibold">
-            <CheckCircle className="w-4 h-4 shrink-0" />
-            <span>Account created successfully! Redirecting to login...</span>
-          </div>
-        )}
+        {/* ডান পাশ: ফর্ম সেকশন */}
+        <div className="p-6 sm:p-10 lg:p-12 flex flex-col justify-center space-y-6">
 
-        {error && (
-          <div className="flex items-center gap-2 p-3 text-xs rounded-lg bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400">
-            <AlertCircle className="w-4 h-4 shrink-0" />
-            <span>{error}</span>
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
-              Full Name
-            </label>
-            <div className="relative">
-              <input
-                type="text"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="John Doe"
-                className="w-full pl-9 pr-3 py-2.5 text-xs rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <User className="absolute left-3 top-3 w-4 h-4 text-zinc-400" />
+          <div className="space-y-2">
+            {/* মোবাইল ভিউ লোগো */}
+            <div className="lg:hidden inline-flex w-10 h-10 rounded-xl bg-blue-600 items-center justify-center text-white font-bold mb-2 shadow-lg shadow-blue-500/30">
+              <Laptop className="w-5 h-5" />
             </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              Create Account
+            </h2>
+            <p className="text-xs sm:text-sm text-zinc-400">
+              Enter your details to register a new account.
+            </p>
           </div>
 
-          <div>
-            <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
-              Email Address
-            </label>
-            <div className="relative">
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="name@example.com"
-                className="w-full pl-9 pr-3 py-2.5 text-xs rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <Mail className="absolute left-3 top-3 w-4 h-4 text-zinc-400" />
+          {/* স্ট্যাটাস মেসেজ */}
+          {success && (
+            <div className="flex items-center gap-2.5 p-3.5 text-xs rounded-xl bg-emerald-950/40 border border-emerald-800/80 text-emerald-400 font-medium">
+              <CheckCircle className="w-4 h-4 shrink-0" />
+              <span>Account created successfully! Redirecting to login...</span>
             </div>
-          </div>
+          )}
 
-          <div>
-            <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
-              Password (min 6 characters)
-            </label>
-            <div className="relative">
-              <input
-                type="password"
-                required
-                minLength={6}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className="w-full pl-9 pr-3 py-2.5 text-xs rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <Lock className="absolute left-3 top-3 w-4 h-4 text-zinc-400" />
+          {error && (
+            <div className="flex items-center gap-2.5 p-3.5 text-xs rounded-xl bg-red-950/40 border border-red-800/80 text-red-400 font-medium">
+              <AlertCircle className="w-4 h-4 shrink-0" />
+              <span>{error}</span>
             </div>
+          )}
+
+          {/* ইনপুট ফর্ম */}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-1.5">
+              <label className="block text-xs font-semibold text-zinc-300">
+                Full Name
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="John Doe"
+                  className="w-full pl-10 pr-4 py-3 text-xs rounded-xl border border-zinc-800 bg-[#212121] text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder:text-zinc-600"
+                />
+                <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="block text-xs font-semibold text-zinc-300">
+                Email Address
+              </label>
+              <div className="relative">
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="name@example.com"
+                  className="w-full pl-10 pr-4 py-3 text-xs rounded-xl border border-zinc-800 bg-[#212121] text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder:text-zinc-600"
+                />
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="block text-xs font-semibold text-zinc-300">
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  type="password"
+                  required
+                  minLength={6}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full pl-10 pr-4 py-3 text-xs rounded-xl border border-zinc-800 bg-[#212121] text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder:text-zinc-600"
+                />
+                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading || success}
+              className="w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-bold text-xs rounded-xl shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2 transition-all active:scale-[0.99]"
+            >
+              {loading ? "Creating Account..." : "Create Account"}
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </form>
+
+          {/* লগইন লিংক */}
+          <div className="text-center pt-4 border-t border-zinc-800/80 text-xs text-zinc-400">
+            Already have an account?{" "}
+            <Link href="/login" className="text-blue-400 font-bold hover:underline ml-1">
+              Sign in
+            </Link>
           </div>
 
-          <button
-            type="submit"
-            disabled={loading || success}
-            className="w-full py-3 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-bold text-xs rounded-xl shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 transition-all"
-          >
-            {loading ? "Creating Account..." : "Create Account"}
-            <ArrowRight className="w-4 h-4" />
-          </button>
-        </form>
-
-        <div className="text-center pt-2 border-t border-zinc-100 dark:border-zinc-800 text-xs text-zinc-500">
-          Already have an account?{" "}
-          <Link href="/login" className="text-blue-600 dark:text-blue-400 font-bold hover:underline">
-            Sign in
-          </Link>
         </div>
       </div>
     </div>
