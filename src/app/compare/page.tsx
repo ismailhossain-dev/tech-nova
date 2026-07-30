@@ -41,7 +41,7 @@ export default async function ComparePage({
   };
 
   return (
-    <div className="min-h-screen bg-[#181818] text-zinc-100 py-10 px-4 sm:px-6 lg:px-8 space-y-8">
+    <div className="min-h-screen md:max-w-7xl lg:max-w-[1420px] mx-auto bg-[#181818] text-zinc-100 py-10 px-4 sm:px-6 lg:px-8 space-y-8">
       {/* Page Header */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
         <div className="inline-flex w-12 h-12 rounded-2xl bg-amber-400/10 border border-amber-400/20 text-amber-400 items-center justify-center font-bold shadow-lg shadow-amber-400/5">

@@ -82,7 +82,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div className="md:max-w-7xl  lg:max-w-[1420px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8 pb-6 border-b border-zinc-200 dark:border-zinc-800">
         <div className="flex items-center gap-4">
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center text-2xl font-bold shadow-lg shadow-blue-500/20">
@@ -174,11 +174,10 @@ export default function ProfilePage() {
                 {addresses.map((addr) => (
                   <div
                     key={addr.id}
-                    className={`p-4 rounded-xl border relative space-y-2 text-xs transition ${
-                      addr.isDefault
+                    className={`p-4 rounded-xl border relative space-y-2 text-xs transition ${addr.isDefault
                         ? "border-blue-500 bg-blue-50/30 dark:bg-blue-950/20"
                         : "border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/40"
-                    }`}
+                      }`}
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-zinc-900 dark:text-white uppercase text-[10px] tracking-wider bg-zinc-200 dark:bg-zinc-700 px-2 py-0.5 rounded">

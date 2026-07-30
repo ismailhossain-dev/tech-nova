@@ -12,7 +12,7 @@ export default async function BrandsPage() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
+    <div className="md:max-w-7xl  lg:max-w-[1420px] mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
       <div className="text-center max-w-2xl mx-auto space-y-2">
         <div className="inline-flex w-12 h-12 rounded-2xl bg-indigo-600/10 text-indigo-600 items-center justify-center font-bold mb-2">
           <Award className="w-6 h-6" />

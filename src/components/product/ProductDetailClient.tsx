@@ -89,7 +89,7 @@ export function ProductDetailClient({ product, similarProducts }: ProductDetailC
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10 bg-[#181818] min-h-screen text-zinc-100">
+    <div className="md:max-w-7xl  lg:max-w-[1420px] mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10 bg-[#181818] min-h-screen text-zinc-100">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-xs text-zinc-400 bg-zinc-900/80 px-4 py-2.5 rounded-xl border border-zinc-800/80 w-fit backdrop-blur-md">
         <Link href="/" className="hover:text-amber-400 transition-colors">Home</Link>
@@ -126,8 +126,8 @@ export function ProductDetailClient({ product, similarProducts }: ProductDetailC
                   key={i}
                   onClick={() => setSelectedImage(img)}
                   className={`relative w-20 h-20 rounded-2xl overflow-hidden border-2 transition-all flex-shrink-0 ${selectedImage === img
-                      ? "border-amber-400 scale-105 shadow-md shadow-amber-400/10"
-                      : "border-zinc-800/80 bg-zinc-900 opacity-60 hover:opacity-100"
+                    ? "border-amber-400 scale-105 shadow-md shadow-amber-400/10"
+                    : "border-zinc-800/80 bg-zinc-900 opacity-60 hover:opacity-100"
                     }`}
                 >
                   <Image src={img} alt={`Thumbnail ${i}`} fill className="object-cover" />
@@ -200,8 +200,8 @@ export function ProductDetailClient({ product, similarProducts }: ProductDetailC
                       key={v.id}
                       onClick={() => setSelectedVariant(v)}
                       className={`p-3.5 rounded-xl border text-left text-xs transition-all ${isSelected
-                          ? "border-amber-400 bg-amber-400/10 ring-1 ring-amber-400/30"
-                          : "border-zinc-800/80 bg-zinc-900/80 hover:border-zinc-700 text-zinc-300"
+                        ? "border-amber-400 bg-amber-400/10 ring-1 ring-amber-400/30"
+                        : "border-zinc-800/80 bg-zinc-900/80 hover:border-zinc-700 text-zinc-300"
                         }`}
                     >
                       <div className="font-bold text-white flex items-center justify-between">

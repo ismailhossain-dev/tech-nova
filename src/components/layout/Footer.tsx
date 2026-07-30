@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Laptop, Mail, Phone, MapPin, ShieldCheck, Truck, RotateCcw, CreditCard } from "lucide-react";
 import { useState } from "react";
+import WidgetProducts from "../cards/WidgetProducts";
 
 export function Footer() {
   const [email, setEmail] = useState("");
@@ -18,8 +19,12 @@ export function Footer() {
 
   return (
     <footer className="bg-zinc-950 text-zinc-300 pt-16 pb-8 border-t border-zinc-800">
+      {/* Top Level product */}
+      <div>
+        <WidgetProducts />
+      </div>
       {/* Features Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 grid grid-cols-1 md:grid-cols-4 gap-8 border-b border-zinc-800">
+      <div className="md:max-w-7xl  lg:max-w-[1420px] mx-auto px-4 sm:px-6 lg:px-8 pb-12 grid grid-cols-1 md:grid-cols-4 gap-8 border-b border-zinc-800">
         <div className="flex items-center gap-4 p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
           <div className="w-12 h-12 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center">
             <Truck className="w-6 h-6" />
@@ -62,7 +67,7 @@ export function Footer() {
       </div>
 
       {/* Main Footer Links */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-5 gap-8">
+      <div className="md:max-w-7xl  lg:max-w-[1420px] mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-5 gap-8">
         {/* Brand Column */}
         <div className="md:col-span-2 space-y-4">
           <div className="flex items-center gap-2">
@@ -142,7 +147,7 @@ export function Footer() {
       </div>
 
       {/* Bottom Copyright & Payment Gateways */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-zinc-900 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
+      <div className="md:max-w-7xl  lg:max-w-[1420px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-zinc-900 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
         <p>© {new Date().getFullYear()} TechNova Inc. All rights reserved.</p>
         <div className="flex items-center gap-3 font-semibold text-zinc-400">
           <span className="px-2.5 py-1 bg-zinc-900 border border-zinc-800 rounded">Stripe</span>

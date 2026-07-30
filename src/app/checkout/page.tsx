@@ -116,7 +116,7 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+    <div className="md:max-w-7xl  lg:max-w-[1420px] mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
       <div className="pb-6 border-b border-zinc-200 dark:border-zinc-800">
         <h1 className="text-2xl font-extrabold text-zinc-900 dark:text-white flex items-center gap-2">
           <CreditCard className="w-6 h-6 text-blue-500" /> Express Checkout
@@ -156,11 +156,10 @@ export default function CheckoutPage() {
                   <div
                     key={addr.id}
                     onClick={() => setSelectedAddressId(addr.id)}
-                    className={`p-4 rounded-xl border cursor-pointer text-xs space-y-1 transition ${
-                      selectedAddressId === addr.id
+                    className={`p-4 rounded-xl border cursor-pointer text-xs space-y-1 transition ${selectedAddressId === addr.id
                         ? "border-blue-600 bg-blue-50/40 dark:bg-blue-950/30 ring-2 ring-blue-500/20"
                         : "border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/40"
-                    }`}
+                      }`}
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-bold uppercase text-[10px] text-zinc-500">{addr.label}</span>
@@ -189,11 +188,10 @@ export default function CheckoutPage() {
               {/* Stripe option */}
               <div
                 onClick={() => setPaymentMethod("STRIPE")}
-                className={`p-4 rounded-xl border cursor-pointer text-xs space-y-2 transition ${
-                  paymentMethod === "STRIPE"
+                className={`p-4 rounded-xl border cursor-pointer text-xs space-y-2 transition ${paymentMethod === "STRIPE"
                     ? "border-blue-600 bg-blue-50/40 dark:bg-blue-950/30 ring-2 ring-blue-500/20"
                     : "border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/40"
-                }`}
+                  }`}
               >
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-zinc-900 dark:text-white">Stripe</span>
@@ -205,11 +203,10 @@ export default function CheckoutPage() {
               {/* SSLCommerz option */}
               <div
                 onClick={() => setPaymentMethod("SSLCOMMERZ")}
-                className={`p-4 rounded-xl border cursor-pointer text-xs space-y-2 transition ${
-                  paymentMethod === "SSLCOMMERZ"
+                className={`p-4 rounded-xl border cursor-pointer text-xs space-y-2 transition ${paymentMethod === "SSLCOMMERZ"
                     ? "border-blue-600 bg-blue-50/40 dark:bg-blue-950/30 ring-2 ring-blue-500/20"
                     : "border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/40"
-                }`}
+                  }`}
               >
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-pink-600 dark:text-pink-400">SSLCommerz</span>
@@ -221,11 +218,10 @@ export default function CheckoutPage() {
               {/* COD option */}
               <div
                 onClick={() => setPaymentMethod("COD")}
-                className={`p-4 rounded-xl border cursor-pointer text-xs space-y-2 transition ${
-                  paymentMethod === "COD"
+                className={`p-4 rounded-xl border cursor-pointer text-xs space-y-2 transition ${paymentMethod === "COD"
                     ? "border-blue-600 bg-blue-50/40 dark:bg-blue-950/30 ring-2 ring-blue-500/20"
                     : "border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/40"
-                }`}
+                  }`}
               >
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-amber-600 dark:text-amber-400">Cash on Delivery</span>

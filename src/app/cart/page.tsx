@@ -40,7 +40,7 @@ export default function CartPage() {
 
   return (
     <div className="min-h-screen bg-[#181818] text-white font-sans selection:bg-blue-600 selection:text-white py-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div className="md:max-w-7xl  lg:max-w-[1420px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
 
         {/* HEADER SECTION */}
         <div className="flex items-center justify-between pb-6 border-b border-zinc-800/80">

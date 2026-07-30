@@ -61,8 +61,8 @@ export function Navbar() {
         ⚡ Summer Sale! Use code{" "}
         <span className="font-bold underline tracking-wide">TECHNOVA10</span> for 10% OFF on all laptops & smartphones!
       </div>
-
-      <div className="max-w-7xl text-white mx-auto px-4 sm:px-6 lg:px-8">
+      {/* height width set navbar  */}
+      <div className="md:md:max-w-7xl  lg:max-w-[1420px] lg:max-w-[1420] text-white mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
 
           {/* Brand Logo */}

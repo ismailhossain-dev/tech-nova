@@ -8,7 +8,7 @@ export default function WishlistPage() {
   const { wishlistVariantIds, toggleWishlist } = useCartStore();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+    <div className="md:max-w-7xl  lg:max-w-[1420px] mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
       <div className="pb-6 border-b border-zinc-200 dark:border-zinc-800">
         <h1 className="text-2xl font-extrabold text-zinc-900 dark:text-white flex items-center gap-2">
           <Heart className="w-6 h-6 text-red-500 fill-red-500" /> Saved Wishlist

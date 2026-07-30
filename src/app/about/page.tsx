@@ -98,7 +98,7 @@ export default async function AboutPage() {
 
             {/* 1. HERO SECTION */}
             <section className="relative overflow-hidden border-b border-zinc-800/80 bg-gradient-to-b from-blue-950/20 via-transparent to-transparent py-24 lg:py-32 px-4 sm:px-6 lg:px-8">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-blue-600/10 blur-3xl pointer-events-none rounded-full" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full md:max-w-7xl  lg:max-w-[1420px] h-96 bg-blue-600/10 blur-3xl pointer-events-none rounded-full" />
 
                 <div className="max-w-4xl mx-auto text-center space-y-6 relative z-10">
                     <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/60 border border-blue-800/50 text-blue-400 text-xs sm:text-sm font-semibold tracking-wide uppercase">
@@ -136,7 +136,7 @@ export default async function AboutPage() {
 
             {/* 3. STATS BAR */}
             <section className="bg-[#121212] border-y border-zinc-800/80 py-14 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
+                <div className="md:max-w-7xl  lg:max-w-[1420px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
                     {stats.map((stat, idx) => (
                         <div
                             key={idx}
@@ -154,7 +154,7 @@ export default async function AboutPage() {
             </section>
 
             {/* 4. WHY CHOOSE US */}
-            <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 md:max-w-7xl  lg:max-w-[1420px] mx-auto">
                 <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
                     <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
                         Why Choose TechNova?
@@ -188,7 +188,7 @@ export default async function AboutPage() {
             </section>
 
             {/* 5. OUR TEAM */}
-            <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-zinc-800/80">
+            <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 md:max-w-7xl  lg:max-w-[1420px] mx-auto border-t border-zinc-800/80">
                 <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
                     <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
                         Meet Our Leadership
