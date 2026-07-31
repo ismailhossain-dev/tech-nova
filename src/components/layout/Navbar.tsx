@@ -2,21 +2,19 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSession, signOut } from "next-auth/react";
 import {
   ShoppingBag,
   Heart,
   Search,
   User,
-  Moon,
-  Sun,
-  Laptop,
   Shield,
   LogOut,
   Menu,
   X,
   ChevronDown,
+  Laptop,
 } from "lucide-react";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { useCartStore } from "@/store/useCartStore";
@@ -29,11 +27,25 @@ export function Navbar() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false); // Profile Dropdown State
   const [isMounted, setIsMounted] = useState(false);
+
+  const profileRef = useRef<HTMLDivElement>(null);
 
   // Fix Hydration Issue by delaying cart count display until client mount
   useEffect(() => {
     setIsMounted(true);
+  }, []);
+
+  // Close profile dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+        setIsProfileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const cartItemsCount = useCartStore((state) => state.getTotalItems());
@@ -61,8 +73,8 @@ export function Navbar() {
         ⚡ Summer Sale! Use code{" "}
         <span className="font-bold underline tracking-wide">TECHNOVA10</span> for 10% OFF on all laptops & smartphones!
       </div>
-      {/* height width set navbar  */}
-      <div className="md:md:max-w-7xl  lg:max-w-[1420px] lg:max-w-[1420] text-white mx-auto px-4 sm:px-6 lg:px-8 py-2">
+
+      <div className="md:max-w-7xl lg:max-w-[1420px] text-white mx-auto px-4 sm:px-6 lg:px-8 py-2">
         <div className="flex items-center justify-between h-16 gap-4">
 
           {/* Brand Logo */}
@@ -71,7 +83,7 @@ export function Navbar() {
               <Laptop className="w-5 h-5" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-extrabold tracking-tight text-white ">
+              <span className="text-xl font-extrabold tracking-tight text-white">
                 TechNova
               </span>
               <span className="text-[9px] text-zinc-500 dark:text-zinc-400 font-semibold tracking-widest uppercase -mt-1">
@@ -83,22 +95,29 @@ export function Navbar() {
           {/* Desktop Search Bar */}
           <form
             onSubmit={handleSearchSubmit}
-            className="hidden md:flex flex-1 max-w-md relative group"
+            className="hidden md:flex flex-1 max-w-md relative group items-center"
           >
-            <input
-              type="text"
-              placeholder="Search laptops, smartphones, headphones..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-20 py-2 text-sm rounded-full border   text-zinc-100  focus:outline-none ring-blue-500/50 border-blue-500 dark:focus:ring-blue-400/50 transition-all"
-            />
-            <Search className="absolute left-3.5 top-2.5 w-4 h-4 text-zinc-400 group-focus-within:text-blue-500 transition-colors" />
-            <button
-              type="submit"
-              className="absolute right-1 top-1 bottom-1 px-4 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-full shadow-sm transition-all"
-            >
-              Search
-            </button>
+            <div className="relative w-full">
+              {/* সার্চ ইনপুট ফিল্ড */}
+              <input
+                type="text"
+                placeholder="Search laptops, smartphones, headphones..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-24 py-2.5 text-sm rounded-full text-zinc-100 bg-zinc-900/60 border border-zinc-700/60 placeholder-zinc-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 shadow-inner backdrop-blur-md transition-all duration-300"
+              />
+
+              {/* সার্চ আইকন */}
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 group-focus-within:text-blue-400 group-focus-within:scale-110 transition-all duration-200 pointer-events-none" />
+
+              {/* সার্চ বাটন */}
+              <button
+                type="submit"
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 px-4 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 active:scale-95 text-white text-xs font-semibold rounded-full shadow-md shadow-blue-500/20 hover:shadow-blue-500/40 transition-all duration-200"
+              >
+                Search
+              </button>
+            </div>
           </form>
 
           {/* Desktop Navigation Links */}
@@ -125,32 +144,20 @@ export function Navbar() {
 
           {/* Right Actions */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Theme Toggle Button */}
-            {/* <button
-              onClick={toggleTheme}
-              aria-label="Toggle Theme"
-              className="p-2.5 rounded-xl text-white hover:bg-indigo-500 transition-colors"
-            >
-              {theme === "dark" ? (
-                <Sun className="w-5 h-5 text-amber-400" />
-              ) : (
-                <Moon className="w-5 h-5 text-indigo-600" />
-              )}
-            </button> */}
 
             {/* Wishlist Link */}
             <Link
               href="/wishlist"
-              className="p-2.5 rounded-xl text-white hover:bg-indigo-500  transition-colors"
+              className="p-2.5 rounded-xl text-white hover:bg-indigo-500 transition-colors"
               aria-label="Wishlist"
             >
               <Heart className="w-5 h-5" />
             </Link>
 
-            {/* Cart Link with Badge (Fixed Hydration Issue) */}
+            {/* Cart Link with Badge */}
             <Link
               href="/cart"
-              className="p-2.5 rounded-xl text-white hover:bg-indigo-500  transition-colors relative"
+              className="p-2.5 rounded-xl text-white hover:bg-indigo-500 transition-colors relative"
               aria-label="Cart"
             >
               <ShoppingBag className="w-5 h-5" />
@@ -161,68 +168,81 @@ export function Navbar() {
               )}
             </Link>
 
-            {/* profile dropdown Actions & profile */}
+            {/* Profile Dropdown Actions (OnClick Click Handling Added) */}
             {session?.user ? (
-              <div className="relative group">
-                <button className="flex items-center gap-2 p-1.5 rounded-xl  transition-colors">
+              <div className="relative" ref={profileRef}>
+                <button
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                  className="flex items-center gap-2 p-1.5 rounded-xl transition-colors focus:outline-none"
+                >
                   <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">
                     {session.user.name?.[0]?.toUpperCase() || "U"}
                   </div>
                   <span className="hidden sm:inline text-xs font-semibold max-w-[90px] truncate">
                     {session.user.name?.split(" ")[0]}
                   </span>
-                  <ChevronDown className="w-3.5 h-3.5 opacity-60 group-hover:rotate-180 transition-transform duration-200" />
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 opacity-60 transition-transform duration-200 ${isProfileOpen ? "rotate-180" : ""
+                      }`}
+                  />
                 </button>
 
                 {/* Account Dropdown */}
-                <div className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl border border-zinc-200/80 dark:border-zinc-800/80 py-2 hidden group-hover:block transition-all z-50">
-                  <div className="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800">
-                    <p className="text-xs font-bold text-zinc-900 dark:text-white truncate">
-                      {session.user.name}
-                    </p>
-                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 truncate mt-0.5">
-                      {session.user.email}
-                    </p>
-                    {session.user.role && (
-                      <span className="inline-block mt-2 px-2 py-0.5 text-[10px] font-bold tracking-wider bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 rounded-md border border-blue-200/50 dark:border-blue-800/50 uppercase">
-                        {session.user.role}
-                      </span>
-                    )}
-                  </div>
+                {isProfileOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl border border-zinc-200/80 dark:border-zinc-800/80 py-2 transition-all z-50 animate-in fade-in zoom-in-95">
+                    <div className="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800">
+                      <p className="text-xs font-bold text-zinc-900 dark:text-white truncate">
+                        {session.user.name}
+                      </p>
+                      <p className="text-[11px] text-zinc-500 dark:text-zinc-400 truncate mt-0.5">
+                        {session.user.email}
+                      </p>
+                      {session.user.role && (
+                        <span className="inline-block mt-2 px-2 py-0.5 text-[10px] font-bold tracking-wider bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 rounded-md border border-blue-200/50 dark:border-blue-800/50 uppercase">
+                          {session.user.role}
+                        </span>
+                      )}
+                    </div>
 
-                  <div className="py-1">
-                    <Link
-                      href="/profile"
-                      className="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors"
-                    >
-                      <User className="w-4 h-4 text-zinc-400" /> My Profile & Orders
-                    </Link>
-
-                    {session.user.role === "ADMIN" && (
+                    <div className="py-1">
                       <Link
-                        href="/admin"
-                        className="flex items-center gap-2.5 px-4 py-2 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/30 transition-colors"
+                        href="/profile"
+                        onClick={() => setIsProfileOpen(false)}
+                        className="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors"
                       >
-                        <Shield className="w-4 h-4 text-indigo-500" /> Admin Dashboard
+                        <User className="w-4 h-4 text-zinc-400" /> My Profile & Orders
                       </Link>
-                    )}
-                  </div>
 
-                  <div className="pt-1 border-t border-zinc-100 dark:border-zinc-800">
-                    <button
-                      onClick={() => signOut({ callbackUrl: "/" })}
-                      className="w-full text-left flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-red-600 dark:text-red-400 hover:bg-red-50/50 dark:hover:bg-red-950/30 transition-colors"
-                    >
-                      <LogOut className="w-4 h-4" /> Sign Out
-                    </button>
+                      {session.user.role === "ADMIN" && (
+                        <Link
+                          href="/admin"
+                          onClick={() => setIsProfileOpen(false)}
+                          className="flex items-center gap-2.5 px-4 py-2 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/30 transition-colors"
+                        >
+                          <Shield className="w-4 h-4 text-indigo-500" /> Admin Dashboard
+                        </Link>
+                      )}
+                    </div>
+
+                    <div className="pt-1 border-t border-zinc-100 dark:border-zinc-800">
+                      <button
+                        onClick={() => {
+                          setIsProfileOpen(false);
+                          signOut({ callbackUrl: "/" });
+                        }}
+                        className="w-full text-left flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-red-600 dark:text-red-400 hover:bg-red-50/50 dark:hover:bg-red-950/30 transition-colors"
+                      >
+                        <LogOut className="w-4 h-4" /> Sign Out
+                      </button>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             ) : (
               <div className="flex items-center gap-2">
                 <Link
                   href="/login"
-                  className="px-3.5 py-1.5 text-xs font-semibold rounded-lg text-zinc-700 bg-zinc-100  transition-colors"
+                  className="px-3.5 py-1.5 text-xs font-semibold rounded-lg text-zinc-700 bg-zinc-100 transition-colors"
                 >
                   Sign In
                 </Link>
