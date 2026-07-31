@@ -36,6 +36,7 @@ export default function RegisterPage() {
         return;
       }
 
+
       setSuccess(true);
       setTimeout(() => {
         router.push("/login");

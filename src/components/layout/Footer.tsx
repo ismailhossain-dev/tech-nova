@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Laptop, Mail, Phone, MapPin, ShieldCheck, Truck, RotateCcw, CreditCard } from "lucide-react";
 import { useState } from "react";
 import WidgetProducts from "../cards/WidgetProducts";
+import LogoSlide from "../Home/LogoSlide/LogoSlide";
 
 export function Footer() {
   const [email, setEmail] = useState("");
@@ -19,6 +20,8 @@ export function Footer() {
 
   return (
     <footer className="bg-zinc-950 text-zinc-300 pt-16 pb-8 border-t border-zinc-800">
+      {/* Logo slide */}
+      <LogoSlide />
       {/* Top Level product */}
       <div>
         <WidgetProducts />

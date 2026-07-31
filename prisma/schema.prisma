@@ -1,4 +1,4 @@
-// qutomaticly create file when i install prisma
+// automaticly create file when i install prisma
 
 generator client {
   provider = "prisma-client-js"
@@ -54,6 +54,7 @@ enum CouponType {
   FIXED
 }
 
+//@id  default vabe generate hobe id ta 
 model User {
   id        String   @id @default(cuid())
   name      String?

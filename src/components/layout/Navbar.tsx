@@ -222,7 +222,7 @@ export function Navbar() {
               <div className="flex items-center gap-2">
                 <Link
                   href="/login"
-                  className="px-3.5 py-1.5 text-xs font-semibold rounded-lg text-zinc-700 bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+                  className="px-3.5 py-1.5 text-xs font-semibold rounded-lg text-zinc-700 bg-zinc-100  transition-colors"
                 >
                   Sign In
                 </Link>
