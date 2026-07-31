@@ -19,7 +19,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-zinc-950 text-zinc-300 pt-16 pb-8 border-t border-zinc-800">
+    <footer className="bg-[#181818] text-zinc-300 pt-16 pb-8 border-t border-zinc-800">
       {/* Logo slide */}
       <LogoSlide />
       {/* Top Level product */}

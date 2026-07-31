@@ -62,7 +62,7 @@ export function Navbar() {
         <span className="font-bold underline tracking-wide">TECHNOVA10</span> for 10% OFF on all laptops & smartphones!
       </div>
       {/* height width set navbar  */}
-      <div className="md:md:max-w-7xl  lg:max-w-[1420px] lg:max-w-[1420] text-white mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="md:md:max-w-7xl  lg:max-w-[1420px] lg:max-w-[1420] text-white mx-auto px-4 sm:px-6 lg:px-8 py-2">
         <div className="flex items-center justify-between h-16 gap-4">
 
           {/* Brand Logo */}
@@ -161,7 +161,7 @@ export function Navbar() {
               )}
             </Link>
 
-            {/* Auth Actions & profile */}
+            {/* profile dropdown Actions & profile */}
             {session?.user ? (
               <div className="relative group">
                 <button className="flex items-center gap-2 p-1.5 rounded-xl  transition-colors">
