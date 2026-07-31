@@ -1,4 +1,4 @@
-// This is your optimized Prisma schema file for PostgreSQL (Neon)
+// qutomaticly create file when i install prisma
 
 generator client {
   provider = "prisma-client-js"
@@ -55,14 +55,14 @@ enum CouponType {
 }
 
 model User {
-  id             String             @id @default(cuid())
-  name           String?
-  email          String             @unique
-  password       String?
-  image          String?
-  role           Role               @default(CUSTOMER)
-  createdAt      DateTime           @default(now())
-  updatedAt      DateTime           @updatedAt
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  password  String?
+  image     String?
+  role      Role     @default(CUSTOMER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   accounts       Account[]
   sessions       Session[]
@@ -129,26 +129,26 @@ model Brand {
 }
 
 model Product {
-  id             String         @id @default(cuid())
+  id             String        @id @default(cuid())
   name           String
-  slug           String         @unique
-  description    String         @db.Text
+  slug           String        @unique
+  description    String        @db.Text
   categoryId     String
   brandId        String
   basePrice      Float
-  images         Json           // PostgreSQL Native JSON
-  specifications Json           // PostgreSQL Native JSON
-  warrantyMonths Int            @default(12)
-  avgRating      Float          @default(0)
-  reviewCount    Int            @default(0)
-  status         ProductStatus  @default(PUBLISHED)
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  images         Json // PostgreSQL Native JSON
+  specifications Json // PostgreSQL Native JSON
+  warrantyMonths Int           @default(12)
+  avgRating      Float         @default(0)
+  reviewCount    Int           @default(0)
+  status         ProductStatus @default(PUBLISHED)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
 
-  category       Category       @relation(fields: [categoryId], references: [id])
-  brand          Brand          @relation(fields: [brandId], references: [id])
-  variants       ProductVariant[]
-  reviews        Review[]
+  category Category         @relation(fields: [categoryId], references: [id])
+  brand    Brand            @relation(fields: [brandId], references: [id])
+  variants ProductVariant[]
+  reviews  Review[]
 
   @@index([categoryId, status])
   @@index([brandId, status])
@@ -157,23 +157,23 @@ model Product {
 }
 
 model ProductVariant {
-  id                String    @id @default(cuid())
+  id                String   @id @default(cuid())
   productId         String
-  sku               String    @unique
-  attributes        Json      // PostgreSQL Native JSON e.g. {"ram": "16GB", "storage": "512GB", "color": "Space Gray"}
+  sku               String   @unique
+  attributes        Json // PostgreSQL Native JSON e.g. {"ram": "16GB", "storage": "512GB", "color": "Space Gray"}
   price             Float
-  stockQuantity     Int       @default(0)
-  lowStockThreshold Int       @default(5)
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+  stockQuantity     Int      @default(0)
+  lowStockThreshold Int      @default(5)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
-  product           Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
-  cartItems         CartItem[]
-  orderItems        OrderItem[]
-  wishlists         Wishlist[]
-  recentlyViewed    RecentlyViewed[]
-  priceAlerts       PriceAlert[]
-  stockAlerts       StockAlert[]
+  product        Product          @relation(fields: [productId], references: [id], onDelete: Cascade)
+  cartItems      CartItem[]
+  orderItems     OrderItem[]
+  wishlists      Wishlist[]
+  recentlyViewed RecentlyViewed[]
+  priceAlerts    PriceAlert[]
+  stockAlerts    StockAlert[]
 
   @@index([productId])
   @@index([price])
@@ -189,20 +189,20 @@ model Review {
   status           ReviewStatus @default(PENDING)
   createdAt        DateTime     @default(now())
 
-  product          Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
-  user             User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([productId, status])
 }
 
 model Cart {
-  id        String     @id @default(cuid())
-  userId    String     @unique
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  items     CartItem[]
+  user  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items CartItem[]
 }
 
 model CartItem {
@@ -211,8 +211,8 @@ model CartItem {
   variantId String
   quantity  Int    @default(1)
 
-  cart      Cart           @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  variant   ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  cart    Cart           @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  variant ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
 
   @@unique([cartId, variantId])
 }
@@ -223,8 +223,8 @@ model Wishlist {
   variantId String
   createdAt DateTime @default(now())
 
-  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  variant   ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  user    User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  variant ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
 
   @@unique([userId, variantId])
 }
@@ -241,8 +241,8 @@ model Address {
   isDefault   Boolean  @default(false)
   createdAt   DateTime @default(now())
 
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  orders      Order[]
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orders Order[]
 }
 
 model Order {
@@ -277,8 +277,8 @@ model OrderItem {
   quantity        Int
   priceAtPurchase Float
 
-  order           Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  variant         ProductVariant @relation(fields: [variantId], references: [id])
+  order   Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  variant ProductVariant @relation(fields: [variantId], references: [id])
 }
 
 model OrderStatusHistory {
@@ -288,7 +288,7 @@ model OrderStatusHistory {
   note      String?
   changedAt DateTime    @default(now())
 
-  order     Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
 }
 
 model Coupon {
@@ -304,7 +304,7 @@ model Coupon {
   expiresAt     DateTime
   stackable     Boolean    @default(false)
 
-  redemptions   CouponRedemption[]
+  redemptions CouponRedemption[]
 }
 
 model CouponRedemption {
@@ -314,9 +314,9 @@ model CouponRedemption {
   orderId    String
   redeemedAt DateTime @default(now())
 
-  coupon     Coupon   @relation(fields: [couponId], references: [id], onDelete: Cascade)
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  order      Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  coupon Coupon @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  order  Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
 }
 
 model RecentlyViewed {
@@ -325,8 +325,8 @@ model RecentlyViewed {
   variantId String
   viewedAt  DateTime @default(now())
 
-  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  variant   ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  user    User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  variant ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
 
   @@unique([userId, variantId])
 }
@@ -338,8 +338,8 @@ model PriceAlert {
   targetPrice Float
   createdAt   DateTime @default(now())
 
-  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  variant     ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  user    User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  variant ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
 }
 
 model StockAlert {
@@ -348,8 +348,8 @@ model StockAlert {
   variantId String
   createdAt DateTime @default(now())
 
-  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  variant   ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  user    User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  variant ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
 }
 
 model Notification {
@@ -360,7 +360,7 @@ model Notification {
   read      Boolean  @default(false)
   createdAt DateTime @default(now())
 
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model StoreSettings {
