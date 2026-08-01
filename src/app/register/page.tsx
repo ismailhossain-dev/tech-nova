@@ -157,7 +157,7 @@ export default function RegisterPage() {
               </label>
               <div className="relative">
                 <input
-                  type="password"
+                  type="text"
                   required
                   minLength={6}
                   value={password}

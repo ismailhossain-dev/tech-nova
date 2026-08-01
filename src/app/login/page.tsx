@@ -152,7 +152,7 @@ export default function LoginPage() {
               </label>
               <div className="relative">
                 <input
-                  type="password"
+                  type="text"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

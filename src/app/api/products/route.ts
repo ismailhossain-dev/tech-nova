@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 
-//bdg proudct
+//bdg proudct query use 
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);

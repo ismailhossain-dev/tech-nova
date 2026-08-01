@@ -1,3 +1,4 @@
+// create prisma client for database interaction
 import { PrismaClient } from "@prisma/client";
 
 const globalForPrisma = globalThis as unknown as {

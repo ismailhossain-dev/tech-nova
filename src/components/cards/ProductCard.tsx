@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Star, ShoppingBag, Heart } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/store/useCartStore";
+import WishlistButton from "../buttons/WishlistButton/WishlistButton";
 
 interface ProductCardProps {
   product: {
@@ -91,17 +92,8 @@ export function ProductCard({ product }: ProductCardProps) {
                 {product.brand.name}
               </span>
             </div>
-
-            <button
-              onClick={handleToggleWishlist}
-              aria-label="Wishlist"
-              className="absolute top-2.5 right-2.5 p-2 rounded-full bg-black/60 backdrop-blur-sm text-zinc-400 hover:text-red-500 transition-colors shadow-sm"
-            >
-              <Heart
-                className={`w-3.5 h-3.5 ${isInWishlist ? "fill-red-500 text-red-500" : ""
-                  }`}
-              />
-            </button>
+            {/* This is wishlist button  */}
+            <WishlistButton product={product} />
           </div>
 
           <div className="flex items-center gap-1.5 mb-3 text-xs">
